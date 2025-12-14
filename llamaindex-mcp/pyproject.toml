@@ -9,6 +9,7 @@ dependencies = [
     "ipykernel>=6.29.5",
     "linkup-sdk>=0.2.4",
     "llama-index>=0.12.30",
+    "llama-index-llms-gemini>=0.2.0",
     "llama-index-llms-ollama>=0.5.4",
     "llama-index-tools-mcp>=0.1.1",
     "mcp[cli]>=1.6.0",

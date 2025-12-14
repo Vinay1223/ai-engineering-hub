@@ -89,6 +89,33 @@ def read_data(query: str = "SELECT * FROM people") -> list:
     finally:
         conn.close()
 
+@mcp.tool()
+def delete_data(query: str) -> bool:
+    """Delete data from the people table using a SQL DELETE query.
+
+    Args:
+        query (str): SQL DELETE query following this format:
+            DELETE FROM people WHERE name = 'John Doe'
+            DELETE FROM people WHERE age > 30
+
+    Returns:
+        bool: True if data was deleted successfully, False otherwise
+
+    Example:
+        >>> query = "DELETE FROM people WHERE name = 'John Doe'"
+        >>> delete_data(query)
+        True
+    """
+    conn, cursor = init_db()
+    try:
+        cursor.execute(query)
+        conn.commit()
+        return True
+    except sqlite3.Error as e:
+        print(f"Error deleting data: {e}")
+        return False
+    finally:
+        conn.close()
 
 
 if __name__ == "__main__":
@@ -103,7 +130,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--server_type", type=str, default="sse", choices=["sse", "stdio"]
+        "--server_type", type=str, default="sse", choices=["sse", "stdio"] ## server sent event(sse) or stdio
     )
 
     args = parser.parse_args()
